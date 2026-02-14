@@ -6,6 +6,7 @@ Self-contained browser and native-MuJoCo simulation repo for a cable-manipulatio
 
 After publishing this repository and enabling Pages from `gh-pages`, the browser demo can be hosted at:
 
+- `https://umar-azam.github.io/ur5e_hande_cable_workcell_wasm/` (if pushed under `Umar-Azam/ur5e_hande_cable_workcell_wasm`)
 - `https://<github-user>.github.io/<repo-name>/`
 - Example URL shape used in this workspace: `https://umar-azam.github.io/<repo-name>/`
 
