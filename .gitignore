@@ -1,6 +1,6 @@
-node_modules/
-build/
-__pycache__/
+/node_modules/
+/build/
+/__pycache__/
 *.pyc
-artifacts/*
-!artifacts/.gitkeep
+/artifacts/*
+!/artifacts/.gitkeep
