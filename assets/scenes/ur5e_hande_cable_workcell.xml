@@ -1,0 +1,384 @@
+<mujoco model="ur5e_with_hande">
+  <compiler angle="radian"/>
+
+  <option integrator="implicitfast"/>
+
+  <visual>
+    <global offwidth="1920" offheight="1080"/>
+    <scale framelength="0.1" framewidth="0.005"/>
+  </visual>
+
+  <default>
+    <default class="ur5e">
+      <material shininess="0.25"/>
+      <joint range="-6.28319 6.28319" armature="0.1"/>
+      <site size="0.001 0.005 0.005" group="4" rgba="0.5 0.5 0.5 0.3"/>
+      <general ctrlrange="-6.2831 6.2831" forcerange="-150 150" biastype="affine" gainprm="2000" biasprm="0 -2000 -400"/>
+      <default class="size3">
+        <default class="size3_limited">
+          <joint range="-3.1415 3.1415"/>
+          <general ctrlrange="-3.1415 3.1415"/>
+        </default>
+      </default>
+      <default class="size1">
+        <general forcerange="-28 28" gainprm="500" biasprm="0 -500 -100"/>
+      </default>
+      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" group="2"/>
+      </default>
+      <default class="hande_collision">
+        <geom type="mesh" contype="0" conaffinity="3" group="3" priority="1" solref="0.01" solimp="0.99 0.995 0.01" margin="0.0001"/>
+        <default class="pad_box2">
+          <geom size="0.003 0.0105 0.01" type="box" contype="1" conaffinity="1" friction="2 0.05 0.001" solref="0.001" solimp="0.95 0.99 0.001" rgba="0.55 0.55 0.55 1"/>
+        </default>
+        <default class="pad_box1">
+          <geom size="0.003 0.0105 0.01" type="box" contype="1" conaffinity="1" friction="2 0.05 0.001" solref="0.001" solimp="0.95 0.99 0.001" rgba="0.45 0.45 0.45 1"/>
+        </default>
+      </default>
+      <default class="collision">
+        <geom type="capsule" group="3"/>
+        <default class="eef_collision">
+          <geom type="cylinder"/>
+        </default>
+      </default>
+    </default>
+    <default class="hande">
+      <default class="hande_right_finger">
+        <joint type="slide" range="0 0.025"/>
+      </default>
+      <default class="hande_left_finger">
+        <joint type="slide" range="0 0.025"/>
+      </default>
+    </default>
+  </default>
+
+  <asset>
+    <material name="black" class="ur5e" rgba="0.033 0.033 0.033 1"/>
+    <material name="jointgray" class="ur5e" rgba="0.278 0.278 0.278 1"/>
+    <material name="linkgray" class="ur5e" rgba="0.82 0.82 0.82 1"/>
+    <material name="urblue" class="ur5e" rgba="0.49 0.678 0.8 1"/>
+    <mesh name="base_0" file="ur5e/assets/base_0.obj"/>
+    <mesh name="base_1" file="ur5e/assets/base_1.obj"/>
+    <mesh name="shoulder_0" file="ur5e/assets/shoulder_0.obj"/>
+    <mesh name="shoulder_1" file="ur5e/assets/shoulder_1.obj"/>
+    <mesh name="shoulder_2" file="ur5e/assets/shoulder_2.obj"/>
+    <mesh name="upperarm_0" file="ur5e/assets/upperarm_0.obj"/>
+    <mesh name="upperarm_1" file="ur5e/assets/upperarm_1.obj"/>
+    <mesh name="upperarm_2" file="ur5e/assets/upperarm_2.obj"/>
+    <mesh name="upperarm_3" file="ur5e/assets/upperarm_3.obj"/>
+    <mesh name="forearm_0" file="ur5e/assets/forearm_0.obj"/>
+    <mesh name="forearm_1" file="ur5e/assets/forearm_1.obj"/>
+    <mesh name="forearm_2" file="ur5e/assets/forearm_2.obj"/>
+    <mesh name="forearm_3" file="ur5e/assets/forearm_3.obj"/>
+    <mesh name="wrist1_0" file="ur5e/assets/wrist1_0.obj"/>
+    <mesh name="wrist1_1" file="ur5e/assets/wrist1_1.obj"/>
+    <mesh name="wrist1_2" file="ur5e/assets/wrist1_2.obj"/>
+    <mesh name="wrist2_0" file="ur5e/assets/wrist2_0.obj"/>
+    <mesh name="wrist2_1" file="ur5e/assets/wrist2_1.obj"/>
+    <mesh name="wrist2_2" file="ur5e/assets/wrist2_2.obj"/>
+    <mesh name="wrist3" file="ur5e/assets/wrist3.obj"/>
+    <mesh name="hande" file="hande/assets/hande.stl"/>
+    <mesh name="coupler" file="hande/assets/coupler.stl"/>
+    <mesh name="right_finger" file="hande/assets/finger_1.stl"/>
+    <mesh name="left_finger" file="hande/assets/finger_2.stl"/>
+  </asset>
+
+  <worldbody>
+    <geom name="floor" size="2.2 2.2 0.1" pos="0 0 -0.25" type="plane" friction="1 0.02 0.01" rgba="0.88 0.88 0.88 1"/>
+    <camera name="overview" pos="1.2 -1.12 0.9" quat="0.782506 0.48336 0.206264 0.33392" fovy="42"/>
+    <light name="spotlight" target="wrist_2_link" pos="0 -1 2" dir="0 0 -1" mode="targetbodycom"/>
+    <body name="base" childclass="ur5e" quat="0.707107 0 0 0.707107">
+      <inertial pos="0 0 0" mass="4" diaginertia="0.00443333 0.00443333 0.0072"/>
+      <geom class="visual" material="black" mesh="base_0"/>
+      <geom class="visual" material="jointgray" mesh="base_1"/>
+      <body name="shoulder_link" pos="0 0 0.163">
+        <inertial pos="0 0 0" mass="3.7" diaginertia="0.0102675 0.0102675 0.00666"/>
+        <joint name="shoulder_pan_joint" class="size3" pos="0 0 0" axis="0 0 1"/>
+        <geom class="visual" material="urblue" mesh="shoulder_0"/>
+        <geom class="visual" material="black" mesh="shoulder_1"/>
+        <geom class="visual" material="jointgray" mesh="shoulder_2"/>
+        <geom class="collision" size="0.06 0.06" pos="0 0 -0.04"/>
+        <site name="shoulder_pan_joint" pos="0 0 0"/>
+        <body name="upper_arm_link" pos="0 0.138 0" quat="0.707107 0 0.707107 0">
+          <inertial pos="0 0 0.2125" mass="8.393" diaginertia="0.133886 0.133886 0.0151074"/>
+          <joint name="shoulder_lift_joint" class="size3" pos="0 0 0" axis="0 1 0"/>
+          <geom class="visual" material="linkgray" mesh="upperarm_0"/>
+          <geom class="visual" material="black" mesh="upperarm_1"/>
+          <geom class="visual" material="jointgray" mesh="upperarm_2"/>
+          <geom class="visual" material="urblue" mesh="upperarm_3"/>
+          <geom class="collision" size="0.06 0.06" pos="0 -0.04 0" quat="0.707107 0.707107 0 0"/>
+          <geom class="collision" size="0.05 0.2" pos="0 0 0.2"/>
+          <site name="shoulder_lift_joint" pos="0 0 0"/>
+          <body name="forearm_link" pos="0 -0.131 0.425">
+            <inertial pos="0 0 0.196" mass="2.275" diaginertia="0.0311796 0.0311796 0.004095"/>
+            <joint name="elbow_joint" class="size3_limited" pos="0 0 0" axis="0 1 0"/>
+            <geom class="visual" material="urblue" mesh="forearm_0"/>
+            <geom class="visual" material="linkgray" mesh="forearm_1"/>
+            <geom class="visual" material="black" mesh="forearm_2"/>
+            <geom class="visual" material="jointgray" mesh="forearm_3"/>
+            <geom class="collision" size="0.055 0.06" pos="0 0.08 0" quat="0.707107 0.707107 0 0"/>
+            <geom class="collision" size="0.038 0.19" pos="0 0 0.2"/>
+            <site name="elbow_joint" pos="0 0 0"/>
+            <body name="wrist_1_link" pos="0 0 0.392" quat="0.707107 0 0.707107 0">
+              <inertial pos="0 0.127 0" mass="1.219" diaginertia="0.0025599 0.0025599 0.0021942"/>
+              <joint name="wrist_1_joint" class="size1" pos="0 0 0" axis="0 1 0"/>
+              <geom class="visual" material="black" mesh="wrist1_0"/>
+              <geom class="visual" material="urblue" mesh="wrist1_1"/>
+              <geom class="visual" material="jointgray" mesh="wrist1_2"/>
+              <geom class="collision" size="0.04 0.07" pos="0 0.05 0" quat="0.707107 0.707107 0 0"/>
+              <site name="wrist_1_joint" pos="0 0 0"/>
+              <body name="wrist_2_link" pos="0 0.127 0">
+                <inertial pos="0 0 0.1" mass="1.219" diaginertia="0.0025599 0.0025599 0.0021942"/>
+                <joint name="wrist_2_joint" class="size1" pos="0 0 0" axis="0 0 1"/>
+                <geom class="visual" material="black" mesh="wrist2_0"/>
+                <geom class="visual" material="urblue" mesh="wrist2_1"/>
+                <geom class="visual" material="jointgray" mesh="wrist2_2"/>
+                <geom class="collision" size="0.04 0.06" pos="0 0 0.04"/>
+                <geom class="collision" size="0.04 0.04" pos="0 0.02 0.1" quat="0.707107 0.707107 0 0"/>
+                <site name="wrist_2_joint" pos="0 0 0"/>
+                <body name="wrist_3_link" pos="0 0 0.1">
+                  <inertial pos="0 0.0771683 0" quat="0.707107 0 0 0.707107" mass="0.1889" diaginertia="0.000132134 9.90863e-05 9.90863e-05"/>
+                  <joint name="wrist_3_joint" class="size1" pos="0 0 0" axis="0 1 0"/>
+                  <geom class="visual" material="linkgray" mesh="wrist3"/>
+                  <geom class="eef_collision" size="0.04 0.02" pos="0 0.08 0" quat="0.707107 0.707107 0 0"/>
+                  <site name="wrist_3_joint" pos="0 0 0"/>
+                  <body name="tool0_link" pos="0 0.1 0" quat="-0.707107 0.707107 0 0">
+                    <geom name="axia80_housing" size="0.04 0.009" pos="0 0 0.012" type="cylinder" contype="0" conaffinity="0" rgba="0.46 0.46 0.48 1"/>
+                    <site name="attachment_site" pos="0 0 0"/>
+                    <site name="eef_site" pos="0 0 0.05" quat="0 0.707107 -0.707107 0"/>
+                    <site name="axia80_site" pos="0 0 0.012" size="0.0025" rgba="0 1 0 1"/>
+                    <camera name="handcam_depth" pos="-0.05 0 0" quat="0 0.707107 -0.707107 0" fovy="62"/>
+                    <camera name="handcam_rgb" pos="-0.05 0.015 0" quat="0 0.707107 -0.707107 0" fovy="42.5"/>
+                    <camera name="basler_wrist_cam_1" pos="-0.072 0.032 0.04" quat="0 0.707107 -0.707107 0" fovy="58"/>
+                    <camera name="basler_wrist_cam_2" pos="-0.072 -0.032 0.04" quat="0 0.707107 -0.707107 0" fovy="58"/>
+                    <camera name="basler_wrist_cam_3" pos="-0.095 0 0.055" quat="0 0.707107 -0.707107 0" fovy="52"/>
+                    <body name="hande" quat="-0.707107 0 0 0.707107">
+                      <geom name="hande_coupler" class="visual" rgba="0.1 0.1 0.1 1" mesh="coupler"/>
+                      <geom class="hande_collision" mesh="coupler"/>
+                      <geom name="hande_base" class="visual" rgba="0.1 0.1 0.1 1" mesh="hande"/>
+                      <geom class="hande_collision" mesh="hande"/>
+                      <site name="pinch" pos="0 0 0.135" group="0" rgba="1 0 0 1"/>
+                      <body name="hande_left_finger" pos="0 0 0.099">
+                        <inertial pos="0.02262 -0.00759 0.00738" quat="0.871952 0.0369732 -0.211073 0.440205" mass="0.03804" diaginertia="1.22763e-05 1.22763e-05 1.22763e-05"/>
+                        <joint name="hande_left_finger_joint" class="hande_left_finger" pos="0 0 0" axis="1 0 0" armature="0.001"/>
+                        <geom name="left_pad1" class="pad_box1" pos="-0.0279853 3.19444e-05 0.0365" mass="0"/>
+                        <geom class="visual" rgba="0.4 0.4 0.4 1" mesh="left_finger"/>
+                      </body>
+                      <body name="hande_right_finger" pos="0 0 0.099">
+                        <inertial pos="-0.02262 0.00759 0.00738" quat="0.871952 -0.0369732 0.211073 0.440205" mass="0.03804" diaginertia="1.22763e-05 1.22763e-05 1.22763e-05"/>
+                        <joint name="hande_right_finger_joint" class="hande_right_finger" pos="0 0 0" axis="-1 0 0" armature="0.001"/>
+                        <geom name="right_pad1" class="pad_box2" pos="0.0279853 -3.19444e-05 0.0365" mass="0"/>
+                        <geom class="visual" rgba="0.4 0.4 0.4 1" mesh="right_finger"/>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <body name="workcell_table" pos="0.54 0 -0.07">
+      <geom name="table_top" size="0.42 0.32 0.07" type="box" friction="0.9 0.02 0.008" rgba="0.62 0.47 0.31 1"/>
+    </body>
+    <body name="cable_fixture" pos="0.62 -0.03 0.014">
+      <geom name="fixture_base" size="0.055 0.065 0.014" type="box" friction="1.1 0.02 0.01" rgba="0.4 0.4 0.42 1"/>
+    </body>
+    <body name="cable_main_anchor" pos="0.54 -0.04 0.022">
+      <geom name="cable_main_clamp" size="0.016 0.018 0.012" type="box" friction="1.1 0.03 0.01" rgba="0.35 0.35 0.38 1"/>
+      <body name="cable_main_seg0">
+        <joint name="cable_main_joint0" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+        <geom name="cable_main_geom0" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.88 0.45 0.13 1"/>
+        <body name="cable_main_seg1" pos="0.014 0 0">
+          <joint name="cable_main_joint1" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+          <geom name="cable_main_geom1" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.88 0.45 0.13 1"/>
+          <body name="cable_main_seg2" pos="0.014 0 0">
+            <joint name="cable_main_joint2" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+            <geom name="cable_main_geom2" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.88 0.45 0.13 1"/>
+            <body name="cable_main_seg3" pos="0.014 0 0">
+              <joint name="cable_main_joint3" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+              <geom name="cable_main_geom3" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.88 0.45 0.13 1"/>
+              <body name="cable_main_seg4" pos="0.014 0 0">
+                <joint name="cable_main_joint4" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+                <geom name="cable_main_geom4" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.88 0.45 0.13 1"/>
+                <body name="cable_main_seg5" pos="0.014 0 0">
+                  <joint name="cable_main_joint5" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+                  <geom name="cable_main_geom5" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.88 0.45 0.13 1"/>
+                  <body name="cable_main_seg6" pos="0.014 0 0">
+                    <joint name="cable_main_joint6" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+                    <geom name="cable_main_geom6" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.88 0.45 0.13 1"/>
+                    <body name="cable_main_seg7" pos="0.014 0 0">
+                      <joint name="cable_main_joint7" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+                      <geom name="cable_main_geom7" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.88 0.45 0.13 1"/>
+                      <body name="cable_main_seg8" pos="0.014 0 0">
+                        <joint name="cable_main_joint8" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+                        <geom name="cable_main_geom8" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.88 0.45 0.13 1"/>
+                        <body name="cable_main_seg9" pos="0.014 0 0">
+                          <joint name="cable_main_joint9" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+                          <geom name="cable_main_geom9" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.88 0.45 0.13 1"/>
+                          <body name="cable_main_seg10" pos="0.014 0 0">
+                            <joint name="cable_main_joint10" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+                            <geom name="cable_main_geom10" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.88 0.45 0.13 1"/>
+                            <body name="cable_main_seg11" pos="0.014 0 0">
+                              <joint name="cable_main_joint11" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+                              <geom name="cable_main_geom11" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.88 0.45 0.13 1"/>
+                              <body name="cable_main_connector" pos="0.014 0 0">
+                                <geom name="cable_main_connector_geom" size="0.016 0.01 0.007" type="box" friction="0.42 0.01 0.002" solref="0.003" solimp="0.95 0.99" density="960" rgba="0.2 0.2 0.22 1"/>
+                                <geom name="cable_main_connector_pin" size="0.0032 0.01" pos="0 0 0.018" quat="0 1 0 0" type="capsule" friction="0.95 0.02 0.003" solref="0.003" solimp="0.95 0.99" rgba="0.35 0.35 0.37 1"/>
+                                <site name="cable_main_connector_site" pos="0 0 0.024" size="0.003" rgba="1 1 0.2 1"/>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <body name="cable_aux_anchor" pos="0.54 0.04 0.022">
+      <geom name="cable_aux_clamp" size="0.016 0.018 0.012" type="box" friction="1.1 0.03 0.01" rgba="0.35 0.35 0.38 1"/>
+      <body name="cable_aux_seg0">
+        <joint name="cable_aux_joint0" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+        <geom name="cable_aux_geom0" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.12 0.62 0.88 1"/>
+        <body name="cable_aux_seg1" pos="0.014 0 0">
+          <joint name="cable_aux_joint1" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+          <geom name="cable_aux_geom1" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.12 0.62 0.88 1"/>
+          <body name="cable_aux_seg2" pos="0.014 0 0">
+            <joint name="cable_aux_joint2" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+            <geom name="cable_aux_geom2" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.12 0.62 0.88 1"/>
+            <body name="cable_aux_seg3" pos="0.014 0 0">
+              <joint name="cable_aux_joint3" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+              <geom name="cable_aux_geom3" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.12 0.62 0.88 1"/>
+              <body name="cable_aux_seg4" pos="0.014 0 0">
+                <joint name="cable_aux_joint4" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+                <geom name="cable_aux_geom4" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.12 0.62 0.88 1"/>
+                <body name="cable_aux_seg5" pos="0.014 0 0">
+                  <joint name="cable_aux_joint5" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+                  <geom name="cable_aux_geom5" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.12 0.62 0.88 1"/>
+                  <body name="cable_aux_seg6" pos="0.014 0 0">
+                    <joint name="cable_aux_joint6" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+                    <geom name="cable_aux_geom6" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.12 0.62 0.88 1"/>
+                    <body name="cable_aux_seg7" pos="0.014 0 0">
+                      <joint name="cable_aux_joint7" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+                      <geom name="cable_aux_geom7" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.12 0.62 0.88 1"/>
+                      <body name="cable_aux_seg8" pos="0.014 0 0">
+                        <joint name="cable_aux_joint8" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+                        <geom name="cable_aux_geom8" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.12 0.62 0.88 1"/>
+                        <body name="cable_aux_seg9" pos="0.014 0 0">
+                          <joint name="cable_aux_joint9" pos="0 0 0" type="ball" armature="8e-06" damping="0.02"/>
+                          <geom name="cable_aux_geom9" size="0.003 0.007" pos="0.007 0 0" quat="0.707107 0 -0.707107 0" type="capsule" friction="0.28 0.008 0.0015" solref="0.003" solimp="0.9 0.985 0.003" density="1150" rgba="0.12 0.62 0.88 1"/>
+                          <body name="cable_aux_connector" pos="0.014 0 0">
+                            <geom name="cable_aux_connector_geom" size="0.016 0.01 0.007" type="box" friction="0.42 0.01 0.002" solref="0.003" solimp="0.95 0.99" density="960" rgba="0.2 0.2 0.22 1"/>
+                            <geom name="cable_aux_connector_pin" size="0.0032 0.01" pos="0 0 0.018" quat="0 1 0 0" type="capsule" friction="0.95 0.02 0.003" solref="0.003" solimp="0.95 0.99" rgba="0.35 0.35 0.37 1"/>
+                            <site name="cable_aux_connector_site" pos="0 0 0.024" size="0.003" rgba="1 1 0.2 1"/>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <contact>
+    <exclude body1="hande" body2="hande_left_finger"/>
+    <exclude body1="hande" body2="hande_right_finger"/>
+    <exclude body1="cable_main_anchor" body2="cable_main_seg0"/>
+    <exclude body1="cable_main_seg0" body2="cable_main_seg1"/>
+    <exclude body1="cable_main_seg1" body2="cable_main_seg2"/>
+    <exclude body1="cable_main_seg2" body2="cable_main_seg3"/>
+    <exclude body1="cable_main_seg3" body2="cable_main_seg4"/>
+    <exclude body1="cable_main_seg4" body2="cable_main_seg5"/>
+    <exclude body1="cable_main_seg5" body2="cable_main_seg6"/>
+    <exclude body1="cable_main_seg6" body2="cable_main_seg7"/>
+    <exclude body1="cable_main_seg7" body2="cable_main_seg8"/>
+    <exclude body1="cable_main_seg8" body2="cable_main_seg9"/>
+    <exclude body1="cable_main_seg9" body2="cable_main_seg10"/>
+    <exclude body1="cable_main_seg10" body2="cable_main_seg11"/>
+    <exclude body1="cable_main_seg11" body2="cable_main_connector"/>
+    <exclude body1="cable_aux_anchor" body2="cable_aux_seg0"/>
+    <exclude body1="cable_aux_seg0" body2="cable_aux_seg1"/>
+    <exclude body1="cable_aux_seg1" body2="cable_aux_seg2"/>
+    <exclude body1="cable_aux_seg2" body2="cable_aux_seg3"/>
+    <exclude body1="cable_aux_seg3" body2="cable_aux_seg4"/>
+    <exclude body1="cable_aux_seg4" body2="cable_aux_seg5"/>
+    <exclude body1="cable_aux_seg5" body2="cable_aux_seg6"/>
+    <exclude body1="cable_aux_seg6" body2="cable_aux_seg7"/>
+    <exclude body1="cable_aux_seg7" body2="cable_aux_seg8"/>
+    <exclude body1="cable_aux_seg8" body2="cable_aux_seg9"/>
+    <exclude body1="cable_aux_seg9" body2="cable_aux_connector"/>
+  </contact>
+
+  <equality>
+    <joint joint1="hande_left_finger_joint" joint2="hande_right_finger_joint" polycoef="0 1 0 0 0" solref="0.005" solimp="0.95 0.99"/>
+    <weld name="grasp_assist_weld" body1="hande" body2="cable_main_connector" anchor="0 1 0" relpose="0 0 0 0 0 0 0" torquescale="1" active="false" solref="0.004" solimp="0.92 0.97"/>
+  </equality>
+
+  <tendon>
+    <fixed name="split">
+      <joint joint="hande_left_finger_joint" coef="0.5"/>
+      <joint joint="hande_right_finger_joint" coef="0.5"/>
+    </fixed>
+  </tendon>
+
+  <actuator>
+    <general name="shoulder_pan" class="size3" joint="shoulder_pan_joint"/>
+    <general name="shoulder_lift" class="size3" joint="shoulder_lift_joint"/>
+    <general name="elbow" class="size3_limited" joint="elbow_joint"/>
+    <general name="wrist_1" class="size1" joint="wrist_1_joint"/>
+    <general name="wrist_2" class="size1" joint="wrist_2_joint"/>
+    <general name="wrist_3" class="size1" joint="wrist_3_joint"/>
+    <general name="hande_fingers_actuator" class="hande" tendon="split" ctrlrange="0 255" forcerange="-45 45" gaintype="affine" biastype="affine" gainprm="0.00980392" biasprm="0 -100 -10"/>
+  </actuator>
+
+  <sensor>
+    <jointpos joint="shoulder_pan_joint" name="ur5e/joint1_pos"/>
+    <jointpos joint="shoulder_lift_joint" name="ur5e/joint2_pos"/>
+    <jointpos joint="elbow_joint" name="ur5e/joint3_pos"/>
+    <jointpos joint="wrist_1_joint" name="ur5e/joint4_pos"/>
+    <jointpos joint="wrist_2_joint" name="ur5e/joint5_pos"/>
+    <jointpos joint="wrist_3_joint" name="ur5e/joint6_pos"/>
+    <jointvel joint="shoulder_pan_joint" name="ur5e/joint1_vel"/>
+    <jointvel joint="shoulder_lift_joint" name="ur5e/joint2_vel"/>
+    <jointvel joint="elbow_joint" name="ur5e/joint3_vel"/>
+    <jointvel joint="wrist_1_joint" name="ur5e/joint4_vel"/>
+    <jointvel joint="wrist_2_joint" name="ur5e/joint5_vel"/>
+    <jointvel joint="wrist_3_joint" name="ur5e/joint6_vel"/>
+    <torque site="shoulder_pan_joint" name="ur5e/joint1_torque"/>
+    <torque site="shoulder_lift_joint" name="ur5e/joint2_torque"/>
+    <torque site="elbow_joint" name="ur5e/joint3_torque"/>
+    <torque site="wrist_1_joint" name="ur5e/joint4_torque"/>
+    <torque site="wrist_2_joint" name="ur5e/joint5_torque"/>
+    <torque site="wrist_3_joint" name="ur5e/joint6_torque"/>
+    <force site="attachment_site" name="ur5e/wrist_force"/>
+    <torque site="attachment_site" name="ur5e/wrist_torque"/>
+    <framepos objtype="site" objname="pinch" name="hande/pinch_pos"/>
+    <framequat objtype="site" objname="pinch" name="hande/pinch_quat"/>
+    <framelinvel objtype="site" objname="pinch" name="hande/pinch_vel"/>
+    <force site="axia80_site" name="axia80/force"/>
+    <torque site="axia80_site" name="axia80/torque"/>
+
+    <actuatorfrc actuator="shoulder_pan" name="ur5e/joint1_actuator_torque"/>
+
+    <actuatorfrc actuator="shoulder_lift" name="ur5e/joint2_actuator_torque"/>
+
+    <actuatorfrc actuator="elbow" name="ur5e/joint3_actuator_torque"/>
+
+    <actuatorfrc actuator="wrist_1" name="ur5e/joint4_actuator_torque"/>
+
+    <actuatorfrc actuator="wrist_2" name="ur5e/joint5_actuator_torque"/>
+
+    <actuatorfrc actuator="wrist_3" name="ur5e/joint6_actuator_torque"/>
+  </sensor>
+</mujoco>

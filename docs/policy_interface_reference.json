@@ -1,0 +1,47 @@
+{
+  "inputs": {
+    "joint_state": {
+      "position": "6-DoF UR5e joint positions [rad]",
+      "velocity": "6-DoF UR5e joint velocities [rad/s]",
+      "actuator_torque": "6-DoF actuator torque estimates [Nm]"
+    },
+    "force_torque": "Axia80-like wrist 6-axis force/torque [N, Nm]",
+    "cameras": {
+      "basler_wrist_cam_1": {
+        "fps": 20,
+        "resolution": [
+          640,
+          480
+        ],
+        "encoding": "RGB"
+      },
+      "basler_wrist_cam_2": {
+        "fps": 20,
+        "resolution": [
+          640,
+          480
+        ],
+        "encoding": "RGB"
+      },
+      "basler_wrist_cam_3": {
+        "fps": 20,
+        "resolution": [
+          640,
+          480
+        ],
+        "encoding": "RGB"
+      }
+    }
+  },
+  "outputs": {
+    "arm_command": "UR5e 6-joint target positions [rad]",
+    "gripper_command": "Hand-E command in [0,255] (0=open, 255=closed)",
+    "tcp_target_pose": "target TCP pose [x,y,z,qw,qx,qy,qz]"
+  },
+  "policy_log_file": "artifacts/ur5e-hande-cable-workcell-final-v2/policy_io.npz",
+  "basler_streams": {
+    "basler_wrist_cam_1": "artifacts/ur5e-hande-cable-workcell-final-v2/basler_streams/basler_wrist_cam_1.mp4",
+    "basler_wrist_cam_2": "artifacts/ur5e-hande-cable-workcell-final-v2/basler_streams/basler_wrist_cam_2.mp4",
+    "basler_wrist_cam_3": "artifacts/ur5e-hande-cable-workcell-final-v2/basler_streams/basler_wrist_cam_3.mp4"
+  }
+}

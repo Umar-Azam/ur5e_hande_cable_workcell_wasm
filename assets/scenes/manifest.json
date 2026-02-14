@@ -1,0 +1,32 @@
+{
+  "files": [
+    "hande/assets/coupler.stl",
+    "hande/assets/finger_1-collision.stl",
+    "hande/assets/finger_1.stl",
+    "hande/assets/finger_2-collision.stl",
+    "hande/assets/finger_2.stl",
+    "hande/assets/hande-collision.stl",
+    "hande/assets/hande.stl",
+    "ur5e/assets/base_0.obj",
+    "ur5e/assets/base_1.obj",
+    "ur5e/assets/forearm_0.obj",
+    "ur5e/assets/forearm_1.obj",
+    "ur5e/assets/forearm_2.obj",
+    "ur5e/assets/forearm_3.obj",
+    "ur5e/assets/shoulder_0.obj",
+    "ur5e/assets/shoulder_1.obj",
+    "ur5e/assets/shoulder_2.obj",
+    "ur5e/assets/upperarm_0.obj",
+    "ur5e/assets/upperarm_1.obj",
+    "ur5e/assets/upperarm_2.obj",
+    "ur5e/assets/upperarm_3.obj",
+    "ur5e/assets/wrist1_0.obj",
+    "ur5e/assets/wrist1_1.obj",
+    "ur5e/assets/wrist1_2.obj",
+    "ur5e/assets/wrist2_0.obj",
+    "ur5e/assets/wrist2_1.obj",
+    "ur5e/assets/wrist2_2.obj",
+    "ur5e/assets/wrist3.obj",
+    "ur5e_hande_cable_workcell.xml"
+  ]
+}

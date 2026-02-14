@@ -1,0 +1,23 @@
+{
+  "name": "ur5e-hande-cable-workcell-wasm",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Browser-native MuJoCo simulation for a UR5e + Robotiq Hand-E cable workcell.",
+  "scripts": {
+    "build": "esbuild src/main.js --bundle --sourcemap --format=esm --outdir=build --external:module",
+    "serve": "python -m http.server 8877",
+    "sync:vendor": "bash tools/sync_vendor.sh",
+    "generate:manifest": "python tools/generate_scene_manifest.py",
+    "validate:browser": "python tools/validate_browser_ui.py --url http://127.0.0.1:8877/index.html",
+    "capture:browser-demo": "python tools/capture_browser_demo.py --url http://127.0.0.1:8877/index.html",
+    "native:gui": "python tools/run_native_mujoco_gui.py"
+  },
+  "dependencies": {
+    "mujoco-js": "^0.0.7",
+    "three": "^0.181.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.12"
+  }
+}

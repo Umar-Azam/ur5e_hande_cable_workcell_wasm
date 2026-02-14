@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>UR5e Hand-E Cable Workcell (MuJoCo WASM)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <meta name="description" content="Browser simulation of a UR5e + Robotiq Hand-E cable workcell with adjustable wrist cameras and manual joint controls."/>
+    <link rel="icon" type="image/png" href="./assets/favicon.png"/>
+    <link rel="stylesheet" href="./src/ui/styles.css"/>
+  </head>
+  <body>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three/build/three.module.js",
+          "three/addons/": "./vendor/three/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
