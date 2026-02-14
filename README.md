@@ -2,13 +2,8 @@
 
 Self-contained browser and native-MuJoCo simulation repo for a cable-manipulation workcell aligned to the Intrinsic AI for Industry challenge hardware stack.
 
-## Online Demo
+## [Live Online Demo](https://umar-azam.github.io/ur5e_hande_cable_workcell_wasm/) 
 
-After publishing this repository and enabling Pages from `gh-pages`, the browser demo can be hosted at:
-
-- `https://umar-azam.github.io/ur5e_hande_cable_workcell_wasm/` (if pushed under `Umar-Azam/ur5e_hande_cable_workcell_wasm`)
-- `https://<github-user>.github.io/<repo-name>/`
-- Example URL shape used in this workspace: `https://umar-azam.github.io/<repo-name>/`
 
 ## Scope
 
