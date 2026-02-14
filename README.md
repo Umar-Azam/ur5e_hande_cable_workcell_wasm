@@ -44,6 +44,26 @@ Additional context reviewed in this workspace:
 - Three simultaneous Basler RGB view panels rendered on-screen.
 - Debug API exposed on `window.__UR5E_WORKCELL__` for validation/automation.
 
+## Simulation Gallery
+
+### Browser Demo Video
+
+<video src="docs/media/gallery/ur5e_hande_browser_demo.webm" controls muted loop playsinline width="960"></video>
+
+[Download video](docs/media/gallery/ur5e_hande_browser_demo.webm)
+
+### Workcell Views
+
+![Workcell ready state](docs/media/gallery/workcell_ready.png)
+![Paused manual adjustment](docs/media/gallery/workcell_manual_adjust.png)
+![Mid replay motion](docs/media/gallery/workcell_mid_replay.png)
+
+### Wrist-Mounted Basler RGB Panels
+
+![Basler wrist camera 1](docs/media/gallery/basler_cam_1.png)
+![Basler wrist camera 2](docs/media/gallery/basler_cam_2.png)
+![Basler wrist camera 3](docs/media/gallery/basler_cam_3.png)
+
 ## Quickstart (Browser)
 
 ```bash
